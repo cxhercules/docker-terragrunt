@@ -56,7 +56,9 @@ LABEL \
 RUN set -eux \
 	&& apk add --no-cache \
 	   #build-base
-	   git make
+	   bash coreutils git jq make ncurses python3 \
+	   && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi 
+	   
 COPY --from=builder /usr/bin/terraform /usr/bin/terraform
 COPY --from=builder /usr/bin/terragrunt /usr/bin/terragrunt
 
