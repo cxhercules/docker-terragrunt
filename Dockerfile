@@ -49,15 +49,18 @@ RUN set -eux \
 	&& chmod +x /usr/bin/terragrunt
 
 # Use a clean tiny image to store artifacts in
-FROM alpine:3.9
+FROM golang:alpine3.10
 LABEL \
 	maintainer="cytopia <cytopia@everythingcli.org>" \
 	repo="https://github.com/cytopia/docker-terragrunt"
 RUN set -eux \
 	&& apk add --no-cache \
+	   #build-base
 	   git make
 COPY --from=builder /usr/bin/terraform /usr/bin/terraform
 COPY --from=builder /usr/bin/terragrunt /usr/bin/terragrunt
 
+#ENV GOPATH /home/go
+#ENV PATH="/home/go/bin:${PATH}"
 WORKDIR /data
 CMD ["terragrunt", "--version"]
