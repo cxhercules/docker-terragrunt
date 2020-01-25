@@ -30,8 +30,8 @@ RUN set -eux \
 	&& curl -sS -L -O \
 		https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_linux_amd64.zip \
 	&& unzip terraform_${VERSION}_linux_amd64.zip \
-	&& mv terraform /usr/bin/terraform \
-	&& chmod +x /usr/bin/terraform
+	&& mv terraform /usr/local/bin/terraform \
+	&& chmod +x /usr/local/bin/terraform
 
 # Get Terragrunt
 ARG TG_VERSION=latest
@@ -45,8 +45,8 @@ RUN set -eux \
 	fi \
 	&& curl -sS -L \
 		https://github.com/gruntwork-io/terragrunt/releases/download/${VERSION}/terragrunt_linux_amd64 \
-		-o /usr/bin/terragrunt \
-	&& chmod +x /usr/bin/terragrunt
+		-o /usr/local/bin/terragrunt \
+	&& chmod +x /usr/local/bin/terragrunt
 
 # Use a clean tiny image to store artifacts in
 FROM golang:alpine3.10
@@ -59,8 +59,8 @@ RUN set -eux \
 	   bash coreutils git jq make ncurses python3 \
 	   && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi 
 	   
-COPY --from=builder /usr/bin/terraform /usr/bin/terraform
-COPY --from=builder /usr/bin/terragrunt /usr/bin/terragrunt
+COPY --from=builder /usr/local/bin/terraform /usr/local/bin/terraform
+COPY --from=builder /usr/local/bin/terragrunt /usr/local/bin/terragrunt
 
 #ENV GOPATH /home/go
 #ENV PATH="/home/go/bin:${PATH}"
