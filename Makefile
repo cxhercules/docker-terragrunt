@@ -8,7 +8,7 @@ CURRENT_DIR = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 DIR = .
 FILE = Dockerfile
-IMAGE = cytopia/terragrunt
+IMAGE = cxhercules/terragrunt
 TAG = latest
 
 TF_VERSION = latest

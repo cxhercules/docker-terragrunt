@@ -54,7 +54,8 @@ LABEL \
 	maintainer="cytopia <cytopia@everythingcli.org>" \
 	repo="https://github.com/cytopia/docker-terragrunt"
 RUN set -eux \
-	&& apk add --no-cache git
+	&& apk add --no-cache \
+	   git make
 COPY --from=builder /usr/bin/terraform /usr/bin/terraform
 COPY --from=builder /usr/bin/terragrunt /usr/bin/terragrunt
 
