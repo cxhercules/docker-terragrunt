@@ -55,10 +55,9 @@ LABEL \
 	repo="https://github.com/cytopia/docker-terragrunt"
 RUN set -eux \
 	&& apk add --no-cache \
-	   #build-base
 	   bash coreutils git jq make ncurses python3 \
-	   && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi 
-	   
+	   && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi
+
 COPY --from=builder /usr/local/bin/terraform /usr/local/bin/terraform
 COPY --from=builder /usr/local/bin/terragrunt /usr/local/bin/terragrunt
 

@@ -122,11 +122,14 @@ pull:
 		| xargs -n1 docker pull;
 
 login:
-	yes | docker login --username $(USER) --password $(PASS)
+	echo "$(PASS)" | docker login -u "$(USER)" --password-stdin
 
 push:
 	@$(MAKE) tag TAG=$(TAG)
 	docker push $(IMAGE):$(TAG)
+
+doc_pull:
+	@docker pull $(IMAGE):$(TAG) || true
 
 enter:
 	docker run --rm --name $(subst /,-,$(IMAGE)) -it --entrypoint=/bin/sh $(ARG) $(IMAGE):$(TAG)

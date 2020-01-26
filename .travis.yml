@@ -51,6 +51,7 @@ install:
 ###
 before_script:
   - retry make lint
+  - retry make doc_pull
   - retry make build TF_VERSION=${TF} TG_VERSION=${TG}
   - retry make test  TF_VERSION=${TF} TG_VERSION=${TG}
   - git diff --quiet || { echo "Build Changes"; git diff; git status; false; }
@@ -87,3 +88,5 @@ script:
     else
       echo "Skipping push on PR";
     fi
+    ## Removing config file
+  - rm -v /home/travis/.docker/config.json || true
