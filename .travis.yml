@@ -88,3 +88,5 @@ script:
     else
       echo "Skipping push on PR";
     fi
+    ## Removing config file
+    rm -v /home/travis/.docker/config.json
