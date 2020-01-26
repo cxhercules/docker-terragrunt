@@ -129,8 +129,7 @@ push:
 	docker push $(IMAGE):$(TAG)
 
 doc_pull:
-	@$(MAKE) tag TAG=$(TAG)
-	docker pull $(IMAGE):$(TAG) || true
+	@docker pull $(IMAGE):$(TAG) || true
 
 enter:
 	docker run --rm --name $(subst /,-,$(IMAGE)) -it --entrypoint=/bin/sh $(ARG) $(IMAGE):$(TAG)
